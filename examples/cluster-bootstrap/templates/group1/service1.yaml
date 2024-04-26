@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: <Service or App name> # Example: service1
+  namespace: {{ .Values.argoCDNamespace }}
+spec:
+  project: {{ .Values.project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: {{ .Values.destination.namespace }}
+  source:
+    path: <Path to helm chart folder of service> # Example: examples/chart/service1
+    repoURL: {{ .Values.source.repoURL }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    helm: {{ .Values.source.helm }}
+  syncPolicy: {{ .Values.syncPolicy }}

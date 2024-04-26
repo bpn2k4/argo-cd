@@ -1,0 +1,26 @@
+project: <Project Name>
+argoCDNamespace: <Argo CD Namespace> # Namespace where argo cd is running !Importance. Example: argocd
+destination:
+  server: https://kubernetes.default.svc
+  namespace: <App Namespace> # Namespace where pods of service run. Example: app
+source:
+  repoURL: <Git Repo URL> # Example: git@github.com:bpn2k4/argo-cd.git
+  targetRevision: <Branch name or "HEAD"> # Example: main, master, dev, HEAD
+  helm:
+    valueFiles:
+      - values.yaml
+syncPolicy: 
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - ApplyOutOfSyncOnly=true
+    - PruneLast=true
+    - CreateNamespace=true
+    - Validate=false
+  retry:
+    limit: 3
+    backoff:
+      duration: 10s
+      factor: 2
+      maxDuration: 3m  
