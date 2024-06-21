@@ -5,6 +5,7 @@
 kubectl -n <argo-cd namespace> apply -f project.yaml
 ```
 
+
 ### Create a repository
 ```bash
 argocd login <argocd.url.com>
